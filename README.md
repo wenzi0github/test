@@ -6,8 +6,29 @@ my first object
 test in github
 
 ```javascript
-var student = {
-  age : 24,
-  name : wenzi
+var wenzi = {
+	name : '师少兵',
+	age : 24,
+	sex : 'male',
+	school : 'NUC(中北大学)',
+	email : 'beibeijingfox@foxmail.com',
+
+	action : {
+		javascript : function(){
+			console.log('javascript', 'jQuery', 'nodejs', 'seajs');
+		},
+
+		html_css : function(){
+			console.log('canvas', 'storage', 'css3');
+		},
+
+		php : function(){
+			console.log('CI', 'curl');
+		},
+
+		other : function(){
+			console.log('acm', 'algorithm', 'git', 'mercurial', 'github', 'linux');
+		}
+	}
 }
 ```
