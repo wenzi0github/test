@@ -12,8 +12,9 @@ var wenzi = {
 	sex : 'male',
 	school : 'NUC(中北大学)',
 	email : 'beibeijingfox@foxmail.com',
+	description : 'love front-end, love life',
 
-	action : {
+	key_skills : {
 		javascript : function(){
 			console.log('javascript', 'jQuery', 'nodejs', 'seajs');
 		},
