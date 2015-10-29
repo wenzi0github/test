@@ -1,0 +1,7 @@
+{
+	"buildcss" : [
+		{
+	        "src" : "css/detail/index.css"
+	    }
+	]
+}

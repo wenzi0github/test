@@ -1,0 +1,8 @@
+.main{
+	width: 200px;
+	height: 200px;
+	background: url(../../img/item_0.jpg) 0 0 no-repeat #aaa;
+}
+.container{
+	font-size: 14px;
+}

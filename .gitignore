@@ -1,0 +1,12 @@
+*_Store
+.DS_Store
+_site
+.idea
+.idea/workspace.xml
+node_modules
+package.json
+gulpfile.js
+build
+rev
+.project
+package.json
