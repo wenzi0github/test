@@ -1,0 +1,22 @@
+{
+  "name": "static",
+  "author": "baibai194@gmail.com",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-cached": "^1.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-csslint": "^0.2.0",
+    "gulp-header": "^1.7.1",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-jshint": "^1.8.6",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-rev-all": "^0.8.22",
+    "gulp-uglify": "^1.4.2",
+    "gulp-util": "^3.0.7",
+    "map-stream": "0.0.6"
+  }
+}
