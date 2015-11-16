@@ -71,16 +71,16 @@ var test = {
 	    	hashLength : 16,
 	    	fileNameVersion : 'version-'+version+'.json',
 	    	fileNameManifest : 'map-'+version+'.json'
-	    	// transformFilename: function (file, hash) {
-	     //        console.log('revPathOriginal: '+file.revPathOriginal);
-	     //        console.log('revFilenameOriginal: '+file.revFilenameOriginal);
-	     //        console.log('revFilenameExtOriginal: '+file.revFilenameExtOriginal);
-	     //        console.log('revHashOriginal: '+file.revHashOriginal);
-	     //        console.log('revHash: '+file.revHash);
-	     //        console.log('hash: '+hash);
-	     //        filepath = file.revPathOriginal;
-	     //        return hash.substr(0, 16)+file.revFilenameOriginal+file.revFilenameExtOriginal;
-	     //    }
+	    	transformFilename: function (file, hash) {
+	            console.log('revPathOriginal: '+file.revPathOriginal);
+	            console.log('revFilenameOriginal: '+file.revFilenameOriginal);
+	            console.log('revFilenameExtOriginal: '+file.revFilenameExtOriginal);
+	            console.log('revHashOriginal: '+file.revHashOriginal);
+	            console.log('revHash: '+file.revHash);
+	            console.log('hash: '+hash);
+	            filepath = file.revPathOriginal;
+	            return hash.substr(0, 16)+file.revFilenameOriginal+file.revFilenameExtOriginal;
+	        }
 	    }),
 	    date = new Date();
 	
