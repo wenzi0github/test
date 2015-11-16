@@ -70,33 +70,37 @@ var test = {
     		revAll = new RevAll({
 	    	hashLength : 16,
 	    	fileNameVersion : 'version-'+version+'.json',
-	    	fileNameManifest : 'map-'+version+'.json',
-	    	transformFilename: function (file, hash) {
-	            console.log('revPathOriginal: '+file.revPathOriginal);
-	            console.log('revFilenameOriginal: '+file.revFilenameOriginal);
-	            console.log('revFilenameExtOriginal: '+file.revFilenameExtOriginal);
-	            console.log('revHashOriginal: '+file.revHashOriginal);
-	            console.log('revHash: '+file.revHash);
-	            console.log('hash: '+hash);
-	            filepath = file.revPathOriginal;
-	            return hash.substr(0, 16)+file.revFilenameOriginal+file.revFilenameExtOriginal;
-	        }
+	    	fileNameManifest : 'map-'+version+'.json'
+	    	// transformFilename: function (file, hash) {
+	     //        console.log('revPathOriginal: '+file.revPathOriginal);
+	     //        console.log('revFilenameOriginal: '+file.revFilenameOriginal);
+	     //        console.log('revFilenameExtOriginal: '+file.revFilenameExtOriginal);
+	     //        console.log('revHashOriginal: '+file.revHashOriginal);
+	     //        console.log('revHash: '+file.revHash);
+	     //        console.log('hash: '+hash);
+	     //        filepath = file.revPathOriginal;
+	     //        return hash.substr(0, 16)+file.revFilenameOriginal+file.revFilenameExtOriginal;
+	     //    }
 	    }),
-	    date = new Date(),
-	    msg = '/* Date: '+date.toLocaleString()+'  path:'+filepath+'*/\n';
+	    date = new Date();
 	
-	    return gulp.src('./css/index/**/*.css')
-	        .pipe(concat('index.css'))
-	        .pipe(cache('caching'))
-	        .pipe(css_minify())
-	        // .pipe(gulp.dest('./build'))
-	        .pipe(revAll.revision())
-	        .pipe(header(msg))
-	        .pipe(gulp.dest('./build'))
-	        .pipe(revAll.manifestFile())
-	        .pipe(gulp.dest('./rev'))
-	        .pipe(revAll.versionFile())
-	        .pipe(gulp.dest('./rev'))
+        var build = [['./css/detail/*', 'detail.css'], ['./css/index/*', 'index.css']];
+        build.forEach(function(item){
+            return gulp.src(item[0])
+                .pipe(concat(item[1]))
+                .pipe(cache('caching'))
+                .pipe(css_minify())
+                .pipe(gulp.dest('./build'))
+                .pipe(revAll.revision())
+                .pipe(header('/* Date: '+date.toLocaleString()+' path:'+ item[1] +' */\n'))
+                .pipe(gulp.dest('./build'))
+                .pipe(revAll.manifestFile())
+                .pipe(gulp.dest('./rev'))
+                .pipe(revAll.versionFile())
+                .pipe(gulp.dest('./rev'))
+        })
+
+	    
     }
 }
 
@@ -123,7 +127,7 @@ gulp.task('concat', function(){
 		}
 		version = files.pop();
 		
-		test.concat(version)
+		test.concat('1.1.0')
 	})
 })
 // http://www.gulpjs.com.cn/docs/recipes/
