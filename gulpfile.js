@@ -11,21 +11,13 @@ var gulp = require('gulp'),
     header = require('gulp-header'),		// 向文件行首写入内容
     css_minify = require('gulp-minify-css'),// css压缩
     js_uglify = require('gulp-uglify'),     // js压缩
-    concat = require('gulp-concat'),     // 文件合并
+    concat = require('gulp-concat'),        // 文件合并
     imagemin = require('gulp-imagemin'),    // img压缩
     RevAll = require('gulp-rev-all'),
     fs = require('fs');
 
 
 var colors = gutil.colors;
-/*
-http://jshint.com/docs/
-file.jshint.success = true; // or false 
-file.jshint.errorCount = 0; // number of errors returned by JSHint 
-file.jshint.results = []; // JSHint errors, see [http://jshint.com/docs/reporters/](http://jshint.com/docs/reporters/) 
-file.jshint.data = []; // JSHint returns details about implied globals, cyclomatic complexity, etc 
-file.jshint.opt = {}; // The options you passed to JSHint 
-*/
 
 // js和css检查
 var test = {
@@ -71,28 +63,29 @@ var test = {
 	    	hashLength : 16,
 	    	fileNameVersion : 'version-'+version+'.json',
 	    	fileNameManifest : 'map-'+version+'.json'
-	    	transformFilename: function (file, hash) {
-	            console.log('revPathOriginal: '+file.revPathOriginal);
-	            console.log('revFilenameOriginal: '+file.revFilenameOriginal);
-	            console.log('revFilenameExtOriginal: '+file.revFilenameExtOriginal);
-	            console.log('revHashOriginal: '+file.revHashOriginal);
-	            console.log('revHash: '+file.revHash);
-	            console.log('hash: '+hash);
-	            filepath = file.revPathOriginal;
-	            return hash.substr(0, 16)+file.revFilenameOriginal+file.revFilenameExtOriginal;
-	        }
+	    	// transformFilename: function (file, hash) {
+	     //        console.log('revPathOriginal: '+file.revPathOriginal);
+	     //        console.log('revFilenameOriginal: '+file.revFilenameOriginal);
+	     //        console.log('revFilenameExtOriginal: '+file.revFilenameExtOriginal);
+	     //        console.log('revHashOriginal: '+file.revHashOriginal);
+	     //        console.log('revHash: '+file.revHash);
+	     //        console.log('hash: '+hash);
+	     //        filepath = file.revPathOriginal;
+	     //        return hash.substr(0, 16)+file.revFilenameOriginal+file.revFilenameExtOriginal;
+	     //    }
 	    }),
 	    date = new Date();
 	
-        var build = [['./css/detail/*', 'detail.css'], ['./css/index/*', 'index.css']];
+        var build = [['./css/index/*', 'index.css'], ['./css/detail/*', 'detail.css']];
         build.forEach(function(item){
+            console.log( item[1] );
             return gulp.src(item[0])
                 .pipe(concat(item[1]))
                 .pipe(cache('caching'))
                 .pipe(css_minify())
                 .pipe(gulp.dest('./build'))
                 .pipe(revAll.revision())
-                .pipe(header('/* Date: '+date.toLocaleString()+' path:'+ item[1] +' */\n'))
+                .pipe(header('/* Date: '+date.toLocaleString()+' Path:'+ item[1] +' */\n'))
                 .pipe(gulp.dest('./build'))
                 .pipe(revAll.manifestFile())
                 .pipe(gulp.dest('./rev'))
@@ -118,17 +111,12 @@ gulp.task('csslint', function() {
 
 // 合并与压缩
 gulp.task('concat', function(){
-    var version = '0.0.0';
-    
-    // 读取git中最新的tag号
-	fs.readdir('./.git/refs/tags', function(err, files){
-		if(err){
-			throw err;
-		}
-		version = files.pop();
-		
-		test.concat('1.1.0')
-	})
+    var date = new Date(),
+        hour = date.getHours(),
+        minute = date.getMinutes(),
+        second = date.getSeconds();
+
+    test.concat(hour+'-'+minute+'-'+second);
 })
 // http://www.gulpjs.com.cn/docs/recipes/
 gulp.task( 'default', ['concat'], function(){
